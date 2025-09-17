@@ -81,7 +81,7 @@ function App() {
 
       <div /*HERO-SECTION*/ className="mt-40 ">
         <div className="font-mont  text-center -z-50 ">
-          <h1 className="text-3xl font-bold px-16 my-6">Melcome To Temple</h1>
+          <h1 className="text-3xl font-bold px-16 my-6">Welcome To Temple</h1>
           <p className="px-5 font-medium">
             The temple is an attractive tourist place where you could vist and
             connect to the pure land of enviroment.you will experience peace and
