@@ -1,120 +1,338 @@
-import React,{useState} from 'react'
-import './index.css'
-
-
-
-
+import React, { useRef, useEffect } from "react";
+import "./index.css";
+import gsap from "gsap";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
+  const img1Ref = useRef(null);
+  const img2Ref = useRef(null);
+  const img3Ref = useRef(null);
+  const img4Ref = useRef(null);
+  const img5Ref = useRef(null);
+  const img6Ref = useRef(null);
+  const lantern1Ref = useRef(null);
+  const lantern2Ref = useRef(null);
+  const homedataRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        img1Ref.current,
+        { opacity: 0, x: 400 },
+        { opacity: 1, x: 0, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        img6Ref.current,
+        { opacity: 0, y: 200 },
+        { opacity: 1, y: 0, delay: 0.1, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        img3Ref.current,
+        { opacity: 0, y: 400 },
+        { opacity: 1, y: 0, delay: 0.3, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        img5Ref.current,
+        { opacity: 0, y: 400 },
+        { opacity: 1, y: 0, delay: 0.5, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        img2Ref.current,
+        { opacity: 0, y: 400 },
+        { opacity: 1, y: 0, delay: 0.8, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        img4Ref.current,
+        { opacity: 0, y: 200 },
+        { opacity: 1, y: 0, delay: 1.8, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        homedataRef.current,
+        { opacity: 0, y: -100 },
+        { opacity: 1, y: 0, delay: 2.5, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        lantern1Ref.current,
+        { opacity: 0, x: 70 },
+        { opacity: 1, x: 0, delay: 3, duration: 1.5, ease: "back.out(1.5)" }
+      );
+
+      gsap.fromTo(
+        lantern2Ref.current,
+        { opacity: 0, x: -70 },
+        { opacity: 1, x: 0, delay: 3, duration: 1.5, ease: "back.out(1.5)" }
+      );
+    });
+
+    return () => ctx.revert(); // cleanup on unmount or hot reload
+  }, []);
+
   return (
-    <div className="w-[100%] h-[100vh] relative overflow-hidden">
+    // hero
+    <div className="relative w-full h-[100vh] overflow-hidden text-[#490707]">
+      {/* bg */}
       <img
-        src="/assets/img-bg.svg"
-        alt="Background"
-        className="w-full h-full object-cover absolute top-0 left-0 -z-10 filter saturate-[1.3]"
+        src="Public/assets/img-bg.svg"
+        className="absolute top-0 right-0 w-full h-full object-cover object-center"
+        alt="hello"
       />
-
-      <div
-        /*- navbar*/ className="border-none w-[90%] m-auto  bg-transparent flex  justify-between items-center p-4  border-gray-300"
-      >
-        <div className="flex items-center gap-3">
-          <i className="ri-ancient-gate-line text-3xl"></i>
-          <h3 className="font-mont font-semibold text-black">Temple</h3>
-        </div>
+      {/* home container */}
+      <div className="pt-40 h-[100vh]">
+        {/* data */}
         <div
-          /*links*/ className="hidden md:block text-gray-830 font-medium  md:items-center"
+          ref={homedataRef}
+          className="relative md:text-left text-center z-10 max-w-[380px] md:max-w-[400px] md:ml-56 mx-auto"
         >
-          <ul className="flex font-mont gap-12">
-            <li>
-              <a href="">Home</a>
-            </li>
-            <li>
-              <a href="">Location</a>
-            </li>
-            <li>
-              <a href="">About</a>
-            </li>
-            <li>
-              <a href="">Explore</a>
-            </li>
-            <li>
-              <a href="">Contact</a>
-            </li>
-          </ul>
-        </div>
-        <div
-          className={`fixed top-0 left-0 h-[50%] w-full bg-white/10 backdrop-blur-sm  transform ${
-            isOpen ? "translate-x-0" : "-translate-y-full"
-          } transition-transform duration-300 ease-in-out z-50`}
-        >
-          <button
-            className="top-5 right-5 absolute self-end "
-            onClick={() => setIsOpen(false)}
-          >
-            <i className="ri-close-large-line"></i>
-          </button>
-          <div className="text-black font-medium p-6 flex flex-col justify-center items-center mt-10 gap-8">
-            <a href="" className="">
-              Home
-            </a>
-            <a href="">Location</a>
-            <a href="">About</a>
-            <a href="">Explore</a>
-            <a href="">Contact</a>
-          </div>
-        </div>
-        <div className="md:hidden cursor-pointer">
-          <i
-            onClick={() => setIsOpen(true)}
-            className="ri-apps-2-line text-3xl "
-          ></i>
-        </div>
-        {/* Optional overlay */}{" "}
-        {isOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
-            onClick={() => setIsOpen(false)}
-          ></div>
-        )}
-      </div>
-
-      <div /*HERO-SECTION*/ className="mt-40 ">
-        <div className="font-mont  text-center -z-50 ">
-          <h1 className="text-3xl font-bold px-16 my-6">Welcome To Temple</h1>
-          <p className="px-5 font-medium">
+          <h1 className="text-5xl font-bold md:text-6xl font-mont">
+            Welcome to Temple
+          </h1>
+          <p className="text-sm mb-8 mt-6 description font-mont font-medium mx-4 sm:mx-0 md:text-base">
             The temple is an attractive tourist place where you could vist and
             connect to the pure land of enviroment.you will experience peace and
             harmony
           </p>
-          <img
-            src="/assets/lantern-1.svg"
-            alt=""
-            className="absolute top-[255px] right-[78px]
-           w-[50px] rotate-[15deg]"
-          />
-          <img
-            src="/assets/lantern-2.svg"
-            alt=""
-            className="absolute w-[50px] left-3 rotate-[-15deg] "
-          />
-        </div>
-        <div>
-          <img src="/assets/img-1.svg" alt="" className="home-images" />
-          <img src="/assets/img-2.svg" alt="" className="home-images" />
-          <img src="/assets/img-3.svg" alt="" className="home-images" />
-          <img src="/assets/img-4.svg" alt="" className="home-images" />
-          <img src="/assets/img-5.svg" alt="" className="home-images" />
-          <img src="/assets/img-6.svg" alt="" className="home-images" />
-        </div>
-        <div className="m-auto text-center ">
-          <button className="font-mont font-semibold bg-gradient-to-r from-pink-400  to-pink-500 rounded-lg text-lg p-2 mt-3">
+          <button className=" font-mont py-2 px-6 bg-gradient-to-r from-[#fc6f76] to-[#ad1919] rounded-md font-semibold">
             Explore Place
           </button>
+          {/* vilakku */}
+          <img
+            ref={lantern1Ref}
+            className="absolute w-[50px] top-10 right-10 rotate-12 md:top-14 md:right-6"
+            src="Public/assets/lantern-1.svg"
+            alt="vilaku"
+          />
+          <img
+            ref={lantern2Ref}
+            className="absolute w-[50px] left-16 -rotate-12 md:bottom-[-18px] md:left-52 lg:"
+            src="Public/assets/lantern-2.svg"
+            alt="vilaku"
+          />
+        </div>
+        {/* bg - overlays */}
+        <div className="images">
+          <img
+            ref={img1Ref}
+            className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+            src="Public/assets/img-1.svg"
+            alt="bg overlay"
+          />
+          <img
+            ref={img2Ref}
+            className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+            src="Public/assets/img-2.svg"
+            alt="bg overlay"
+          />
+          <img
+            ref={img3Ref}
+            className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+            src="Public/assets/img-3.svg"
+            alt="bg overlay"
+          />
+          <img
+            ref={img4Ref}
+            className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+            src="Public/assets/img-4.svg"
+            alt="bg overlay"
+          />
+          <img
+            ref={img5Ref}
+            className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+            src="Public/assets/img-6.svg"
+            alt="bg overlay"
+          />
+          <img
+            ref={img6Ref}
+            className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+            src="Public/assets/img-5.svg"
+            alt="bg overlay"
+          />
         </div>
       </div>
     </div>
   );
 }
 
-export default App
+export default App;
+
+// import React, { useRef, useEffect } from "react";
+// import "./index.css";
+// import gsap from "gsap";
+
+// function App() {
+//   const img1Ref = useRef(null);
+//   const img2Ref = useRef(null);
+//   const img3Ref = useRef(null);
+//   const img4Ref = useRef(null);
+//   const img5Ref = useRef(null);
+//   const img6Ref = useRef(null);
+//   const lantern1Ref = useRef(null);
+//   const lantern2Ref = useRef(null);
+//   const homedataRef = useRef(null);
+
+//   useEffect(() => {
+//     gsap.from(img1Ref.current, {
+//       opacity: 0,
+//       x: 400,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(img6Ref.current, {
+//       opacity: 0,
+//       y: 200,
+//       delay: 0.1,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(img3Ref.current, {
+//       opacity: 0,
+//       y: 400,
+//       delay: 0.3,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(img5Ref.current, {
+//       opacity: 0,
+//       y: 400,
+//       delay: 0.5,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(img2Ref.current, {
+//       opacity: 0,
+//       y: 400,
+//       delay: 0.8,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(img4Ref.current, {
+//       opacity: 0,
+//       y: 200,
+//       delay: 1.8,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(homedataRef.current, {
+//       opacity: 0,
+//       y: -100,
+//       delay: 2.5,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(lantern1Ref.current, {
+//       opacity: 0,
+//       x: 70,
+//       delay: 3,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+
+//     gsap.from(lantern2Ref.current, {
+//       opacity: 0,
+//       x: -70,
+//       delay: 3,
+//       duration: 1.5,
+//       ease: "back.out(1.5)",
+//     });
+//   }, []);
+
+//   return (
+//     // hero
+//     <div className="relative w-full h-[100vh] overflow-hidden text-[#490707]">
+//       {/* bg */}
+//       <img
+//         src="Public/assets/img-bg.svg"
+//         className="absolute top-0 right-0 w-full h-full object-cover object-center"
+//         alt="hello"
+//       />
+
+//       {/* home container */}
+//       <div className="pt-40 h-[100vh]">
+//         {/* data */}
+//         <div
+//           ref={homedataRef}
+//           className="relative md:text-left text-center z-10 max-w-[380px] md:max-w-[400px] md:ml-56 mx-auto"
+//         >
+//           <h1 className="text-5xl font-bold md:text-6xl font-mont">
+//             Welcome to Temple
+//           </h1>
+//           <p className="text-sm mb-8 mt-6 description font-mont font-medium mx-4 sm:mx-0 md:text-base">
+//             The temple is an attractive tourist place where you could vist and
+//             connect to the pure land of enviroment.you will experience peace and
+//             harmony
+//           </p>
+//           <button className="font-mont py-2 px-6 bg-gradient-to-r from-[#fc6f76] to-[#ad1919] rounded-md font-semibold">
+//             Explore Place
+//           </button>
+//           {/* vilakku */}
+//           <img
+//             ref={lantern1Ref}
+//             className="absolute w-[50px] top-10 right-10 rotate-12 md:top-14 md:right-6"
+//             src="Public/assets/lantern-1.svg"
+//             alt="vilaku"
+//           />
+//           <img
+//             ref={lantern2Ref}
+//             className="absolute w-[50px] left-16 -rotate-12 md:bottom-[-18px] md:left-52"
+//             src="Public/assets/lantern-2.svg"
+//             alt="vilaku"
+//           />
+//         </div>
+
+//         {/* bg - overlays */}
+//         <div className="images">
+//           <img
+//             ref={img1Ref}
+//             className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+//             src="Public/assets/img-1.svg"
+//             alt="bg overlay"
+//           />
+//           <img
+//             ref={img2Ref}
+//             className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+//             src="Public/assets/img-2.svg"
+//             alt="bg overlay"
+//           />
+//           <img
+//             ref={img3Ref}
+//             className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+//             src="Public/assets/img-3.svg"
+//             alt="bg overlay"
+//           />
+//           <img
+//             ref={img4Ref}
+//             className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+//             src="Public/assets/img-4.svg"
+//             alt="bg overlay"
+//           />
+//           <img
+//             ref={img5Ref}
+//             className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+//             src="Public/assets/img-6.svg"
+//             alt="bg overlay"
+//           />
+//           <img
+//             ref={img6Ref}
+//             className="absolute bottom-0 max-w-none w-[800px] right-[-9rem] sm:right-0 md:w-[initial] lg:bottom-[-9rem]"
+//             src="Public/assets/img-5.svg"
+//             alt="bg overlay"
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
